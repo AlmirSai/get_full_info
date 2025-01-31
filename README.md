@@ -1,132 +1,178 @@
 
-## **Step-by-Step Guide for macOS**
+# System Information Tool
 
-### **1. Save the Script**
-1. Open the **Terminal** app on your Mac.
-2. Create a new file for the script using `nano` or any text editor:
-   ```bash
-   nano get_full_info.sh
-   ```
-3. Copy and paste the script content (provided earlier) into the editor.
-4. Save the file:
-   - In `nano`, press `CTRL + O`, then `Enter` to save.
-   - Press `CTRL + X` to exit.
+A comprehensive system information gathering tool for macOS and Linux systems.
 
----
+## Features
 
-### **2. Make the Script Executable**
-Run the following command to make the script executable:
+- 💻 CPU Information
+  - Processor details
+  - Clock speeds
+  - Cache information
+  - Architecture details
+
+- 🎮 GPU Information
+  - Graphics card details
+  - VRAM information
+  - Driver versions
+  - Temperature monitoring
+
+- 🧠 Memory Information
+  - Total RAM
+  - Available memory
+  - Swap usage
+  - Memory pressure
+
+- 💾 Disk Information
+  - Storage capacity
+  - Disk usage
+  - I/O statistics
+  - Mount points
+
+- 🌐 Network Information
+  - Interface details
+  - IP addresses
+  - Network throughput
+  - Active connections
+
+- 🔒 Security Information
+  - System integrity status
+  - Firewall configuration
+  - Open ports
+  - Security updates
+  - Failed login attempts
+
+- 📊 Process Statistics
+  - CPU usage per process
+  - Memory consumption
+  - Running services
+  - Process tree
+
+- 📈 Performance Metrics
+  - System load
+  - CPU utilization
+  - Memory pressure
+  - I/O wait times
+
+- 🛠️ Developer Tools Information
+  - Programming Languages
+    - Python, Node.js, Ruby, Java, Go
+    - Version information
+    - Installation paths
+  - Package Managers
+    - npm, pip, Homebrew
+    - Global packages
+  - DevOps Tools
+    - Docker, Kubernetes
+    - CI/CD tools
+  - Databases
+    - PostgreSQL, MySQL, MongoDB
+    - Connection status
+  - Web Frameworks
+    - React, Vue, Django, Flask
+    - Version compatibility
+
+## Installation
+
+### Prerequisites
+- macOS or Linux operating system
+- Terminal access
+- Administrative privileges (for some features)
+
+### Quick Install
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd system-info-tool
+```
+
+2. Make the script executable:
 ```bash
 chmod +x get_full_info.sh
 ```
 
----
-
-### **3. Move the Script to a System-Wide Location**
-Move the script to `/usr/local/bin`, which is a standard directory for user-installed commands:
+3. (Optional) Install system-wide:
 ```bash
 sudo mv get_full_info.sh /usr/local/bin/get_full_info
 ```
 
----
+### Dependencies
 
-### **4. Verify the Installation**
-1. Ensure `/usr/local/bin` is in your `PATH`. Run:
-   ```bash
-   echo $PATH
-   ```
-   If `/usr/local/bin` is not listed, add it to your `PATH` by editing your shell configuration file (e.g., `~/.zshrc` or `~/.bashrc`):
-   ```bash
-   echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.zshrc
-   source ~/.zshrc
-   ```
-2. Test the command:
-   ```bash
-   get_full_info
-   ```
+The script primarily uses built-in system commands, but some features require additional tools:
 
----
-
-### **5. Install Dependencies (Optional)**
-Some features (e.g., GPU temperature monitoring) require additional tools:
-- **iStats** (for temperature monitoring):
-  ```bash
-  gem install iStats
-  ```
-- **Homebrew** (for additional tools like `sensors` or `radeontop`):
-  ```bash
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ```
-
----
-
-## **Usage**
-
-### **Run the Command**
-Simply type the following in your terminal:
 ```bash
-get_full_info
+# For macOS
+gem install iStats  # GPU temperature monitoring
+
+# For enhanced monitoring
+brew install iostat  # Disk I/O statistics
 ```
 
-### **Example Output**
-```plaintext
-----------------------------------------
-CPU Information
-----------------------------------------
-machdep.cpu.brand_string: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
-machdep.cpu.core_count: 6
-machdep.cpu.thread_count: 12
-CPU Frequency: 2600000000
-CPU Cache: 32768
-Load Average: 2.34 1.98 1.76
+## Usage
 
-----------------------------------------
-GPU Information
-----------------------------------------
-Chipset Model: Intel UHD Graphics 630
-VRAM (Dynamic, Max): 1536 MB
-Chipset Model: AMD Radeon Pro 5500M
-VRAM (Dynamic, Max): 8192 MB
+### Basic Usage
 
-----------------------------------------
-Developer Tools
-----------------------------------------
-Go Version: go1.19.2
-Python Version: Python 3.10.6
-Node.js Version: v18.12.1
-npm Version: 8.19.2
-Yarn Version: 1.22.19
-Docker Version: Docker version 20.10.21
-Git Version: git version 2.38.1
-```
-
----
-
-## **Troubleshooting**
-
-### **1. Command Not Found**
-If you see `command not found` after running `get_full_info`, ensure:
-- The script is in `/usr/local/bin`.
-- `/usr/local/bin` is in your `PATH`.
-
-### **2. Permission Denied**
-If you encounter permission issues, ensure you use `sudo` when moving the script:
+Run the script without arguments to get complete system information:
 ```bash
-sudo mv get_full_info.sh /usr/local/bin/get_full_info
+./get_full_info.sh
 ```
 
-### **3. Missing Tools**
-If certain tools (e.g., `iStats`, `sensors`) are missing, install them using the instructions provided above.
+### Command-Line Options
 
----
+Use the `-c` flag to get specific information:
+```bash
+./get_full_info.sh -c [command]
+```
 
-## **Uninstallation**
-To remove the `get_full_info` command:
-1. Delete the script:
-   ```bash
-   sudo rm /usr/local/bin/get_full_info
-   ```
-2. Remove any dependencies you no longer need:
-   ```bash
-   gem uninstall iStats
-   ```
+Available commands:
+- `cpu` - CPU information
+- `gpu` - GPU information
+- `memory` - Memory statistics
+- `disk` - Storage information
+- `network` - Network details
+- `dev_tools` - Developer tools status
+- `security` - Security information
+- `process` - Process statistics
+- `performance` - System metrics
+- `help` - Show all commands
+
+## Troubleshooting
+
+### Common Issues
+
+1. Permission Denied
+   - Ensure script is executable
+   - Run with sudo for privileged operations
+
+2. Missing Tools
+   - Install required dependencies
+   - Check PATH configuration
+
+3. Performance Issues
+   - Adjust refresh intervals
+   - Filter specific metrics
+
+### Error Messages
+
+- "Temperature sensors not found": Install iStats
+- "Disk I/O monitoring unavailable": Install iostat
+- "Permission denied": Use sudo for system-level operations
+
+## Contributing
+
+Contributions are welcome! Please feel free to:
+- Report bugs
+- Suggest features
+- Submit pull requests
+- Improve documentation
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+- Create an issue for bug reports
+- Join discussions for feature requests
+- Check documentation for common questions
